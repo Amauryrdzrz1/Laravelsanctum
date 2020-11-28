@@ -5,11 +5,21 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasApiTokens;
 
+    protected $table = 'users';
+
+    public function comentarios(){
+        return $this->hasMany('app\Comentarios');
+    }
+    public function productos(){
+        return $this->hasMany('app\Productos');
+    }
+    
     /**
      * The attributes that are mass assignable.
      *
